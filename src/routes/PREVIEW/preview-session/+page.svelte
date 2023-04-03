@@ -1,4 +1,7 @@
 <script lang="ts">
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 	let email: string, password: string;
 
 	const submit = async (e: SubmitEvent) => {
@@ -33,3 +36,18 @@
 	<input type="password" bind:value={password} />
 	<input type="submit" />
 </form>
+
+<p>Session</p>
+<span>
+	{#if data.session}
+		{JSON.stringify(data.session)}
+		USER: {data.session.user.email}
+		ID: {data.session.user.id}
+		ROLE: {data.session.user.role}
+	{:else}
+		<span>no session</span>
+	{/if}
+</span>
+
+<p>RLS</p>
+<span>{JSON.stringify(data.res)}</span>

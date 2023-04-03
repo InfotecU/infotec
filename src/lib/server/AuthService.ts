@@ -1,6 +1,7 @@
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
 import type { RequestEvent } from '@sveltejs/kit';
+import { createClient } from '@supabase/supabase-js';
 
 export class AuthService {
 	private supabase;
@@ -24,6 +25,16 @@ export class AuthService {
 			data: { session }
 		} = await this.supabase.auth.getSession();
 		return session;
+	};
+
+	public setSession = async ({
+		access_token,
+		refresh_token
+	}: {
+		access_token: string;
+		refresh_token: string;
+	}) => {
+		return await this.supabase.auth.setSession({ access_token, refresh_token });
 	};
 
 	public signup = async (email: string, password: string) => {
