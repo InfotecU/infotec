@@ -1,18 +1,18 @@
 import { redirect } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
+import { ApiService } from '$lib/ApiService';
 
 export const load: PageLoad = async (event) => {
-	// si el usuario se logeo con google, lo envia a la pagina principal con el token como query param, de ser asi registramos la session
+	// if the user logged with google, the session is generated manually
 	const url = new URL(event.url.href as string);
 	const access_token = new URLSearchParams(url.hash).get('#access_token');
 	const refresh_token = new URLSearchParams(url.hash).get('refresh_token');
 
-	const res = await event.fetch('/api/v1/auth/set-session', {
-		method: 'POST',
-		body: JSON.stringify({ access_token, refresh_token })
-	});
+	if (!access_token || !refresh_token) return {};
 
-	const { data, error } = await res.json();
+	const api = new ApiService('/api/v1/auth/set-session');
+
+	const { data, error } = await api.post({ body: { access_token, refresh_token } });
 
 	if (error === null) throw redirect(300, '/');
 };

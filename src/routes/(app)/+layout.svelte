@@ -3,7 +3,6 @@
 	import type { LayoutServerData } from './$types';
 
 	export let data: LayoutServerData;
-	console.log(data);
 </script>
 
 <Navbar menus={[{ name: 'Cursos' }, { name: 'Sobre nosotros' }]} user={null} />
