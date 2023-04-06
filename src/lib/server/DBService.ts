@@ -26,4 +26,11 @@ export class DBService {
 	 * @returns a set of CRUD operations for entity
 	 */
 	public getEntityService = (entity: string) => new EntityService(entity, this.supabase);
+
+	/**
+	 *
+	 * @param bucket name of the bucket
+	 * @returns a bucket or an error
+	 */
+	public getBucketService = (bucket: string) => this.supabase.storage.from(bucket);
 }

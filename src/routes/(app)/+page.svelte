@@ -13,7 +13,7 @@
 	</div>
 	<div class="flex gap-6">
 		<a
-			class="rounded-lg p-4 text-black text-md font-bold border bg-white flex justify-center items-center hover:text-white hover:bg-black duration-75"
+			class="rounded-lg p-4 text-black text-md font-bold border bg-white flex justify-center items-center hover:text-white hover:bg-transparent duration-75"
 			href="#"
 			>Registrarse
 		</a>

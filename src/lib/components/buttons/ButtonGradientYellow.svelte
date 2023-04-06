@@ -8,7 +8,7 @@
 >
 	{#if href}
 		<a
-			class=" rounded-lg p-4 text-stone-100 bg-black text-md font-bold outline-none hover:bg-transparent hover:text-black duration-75"
+			class=" rounded-lg p-4 text-stone-100 bg-gray-950 text-md font-bold outline-none hover:bg-transparent hover:text-black duration-75"
 			{href}
 		>
 			{content}

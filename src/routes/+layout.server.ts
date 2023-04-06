@@ -17,7 +17,7 @@ export const load: LayoutServerLoad = async ({ locals: { getSession, dbService }
 		await userService.create({
 			username: 'USER',
 			email: session.user.email,
-			avatar_image_url: 'test.png',
+			avatar_image_url: session.user.id + '.png',
 			uid: session.user.id,
 			role: 'USER'
 		});
