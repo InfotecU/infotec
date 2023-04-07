@@ -1,5 +1,5 @@
 <script lang="ts">
-	import InfotecLogo from '$lib/components/InfotecLogo.svelte';
+	import InfotecLogo from '$lib/components/logo/InfotecLogo.svelte';
 </script>
 
 <InfotecLogo />
