@@ -12,7 +12,7 @@
 	<p class="text-xl font-medium text-gray-500">{data.course.summary}</p>
 	<div class="h-1 w-56 m-10 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500" />
 	<h1 class="text-4xl font-bold text-stone-100">Secciones</h1>
-	<div class="grid grid-cols-4 gap-5">
+	<div class="flex flex-wrap gap-5">
 		{#each data.course.sections as section}
 			<SectionCard {section} />
 		{/each}

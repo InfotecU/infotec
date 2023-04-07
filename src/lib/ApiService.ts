@@ -22,6 +22,9 @@ export class ApiService {
 			});
 
 			const data = await res.json();
+
+			if (!res.ok) return { data: null, error: data.message };
+
 			return { data, error: null };
 		} catch (err) {
 			return { data: null, error: { message: err } };
@@ -45,6 +48,9 @@ export class ApiService {
 			});
 
 			const data = await res.json();
+
+			if (!res.ok) return { data: null, error: data.message };
+
 			return { data, error: null };
 		} catch (err) {
 			return { data: null, error: { message: err } };
@@ -68,6 +74,9 @@ export class ApiService {
 			});
 
 			const data = await res.json();
+
+			if (!res.ok) return { data: null, error: data.message };
+
 			return { data, error: null };
 		} catch (err) {
 			return { data: null, error: { message: err } };
@@ -88,6 +97,9 @@ export class ApiService {
 			});
 
 			const data = await res.json();
+
+			if (!res.ok) return { data: null, error: data.message };
+
 			return { data, error: null };
 		} catch (err) {
 			return { data: null, error: { message: err } };
