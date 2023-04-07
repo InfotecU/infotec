@@ -51,6 +51,7 @@
 		<CourseTableOfContent
 			sections={data.allSections}
 			selectecSectionSlug={$page.params.section_slug}
+			on:article-click={selectArticle}
 		/>
 	{/if}
 	<div class="w-1 h-ful rounded-full bg-slate-600" />
