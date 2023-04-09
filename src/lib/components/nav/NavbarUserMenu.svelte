@@ -7,8 +7,8 @@
 
 	const menus = [
 		{
-			name: 'Mi Perfil',
-			slug: 'profile'
+			name: 'Estadisticas',
+			slug: 'stats'
 		},
 		{
 			name: 'Configuracion',

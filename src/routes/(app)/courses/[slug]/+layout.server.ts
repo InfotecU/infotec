@@ -15,7 +15,7 @@ export const load: LayoutServerLoad = async ({ locals, params }) => {
 
 	const session = await locals.getSession();
 
-	const { data: courseData, error: courseError } = await courseServices.getOneByColumn({
+	const { data: courseData, error: courseError } = await courseServices.getFilterByColumn({
 		column: 'slug',
 		value: params.slug
 	});
@@ -23,7 +23,7 @@ export const load: LayoutServerLoad = async ({ locals, params }) => {
 	if (courseError || courseData == null)
 		throw error(500, { message: 'Ocurrio un error cargando el contenido del curso' });
 
-	const { data: sectionsData, error: sectionError } = await sectionServices.getOneByColumn({
+	const { data: sectionsData, error: sectionError } = await sectionServices.getFilterByColumn({
 		column: 'course_id',
 		value: courseData[0].id
 	});
@@ -33,7 +33,7 @@ export const load: LayoutServerLoad = async ({ locals, params }) => {
 
 	const sections = await Promise.all(
 		sectionsData?.map(async (section) => {
-			const { data: articlesData, error: articleError } = await articleServices.getOneByColumn({
+			const { data: articlesData, error: articleError } = await articleServices.getFilterByColumn({
 				column: 'section_id',
 				value: section.id
 			});

@@ -7,7 +7,7 @@ export const load: LayoutServerLoad = async ({ locals: { getSession, dbService }
 
 	if (!session) return { session: null };
 
-	const { data, error } = await userService.getOneByColumn({
+	const { data, error } = await userService.getFilterByColumn({
 		column: 'email',
 		value: session.user.email
 	});

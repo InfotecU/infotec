@@ -2,13 +2,18 @@ import type { RequestHandler } from './$types';
 import { json, error } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ request, locals }) => {
+	const session = await locals.getSession();
+	if (!session) {
+		throw error(401, { message: 'Unauthorized' });
+	}
+
 	const body = await request.json();
 
 	const dbService = locals.dbService;
 	const sectionsCompleteService = dbService.getEntityService('userCompleteSection');
 	const userService = dbService.getEntityService('users');
 
-	const { data: dataUser, error: errorUser } = await userService.getOneByColumn({
+	const { data: dataUser, error: errorUser } = await userService.getFilterByColumn({
 		column: 'uid',
 		value: body.userUid
 	});

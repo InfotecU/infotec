@@ -23,14 +23,14 @@
 		articleTitleSelected = e.detail.title;
 	};
 
-	const completeSection = async (e: CustomEvent) => {
+	const completeSection = async (e: Event) => {
 		if (!$page.data.session) goto(data.nextSection?.slug || '/courses');
 
 		const api = new ApiService('/api/v1/sections/complete');
 
-		const { data: insertData, error } = await api.post({
+		await api.post({
 			body: {
-				sectionId: e.detail.id,
+				sectionId: data.section.id,
 				userUid: $page.data.session.user.id
 			}
 		});
@@ -55,9 +55,18 @@
 		/>
 	{/if}
 	<div class="w-1 h-ful rounded-full bg-slate-600" />
-	<CourseArticle
-		articles={data.section.articles}
-		on:finish-section={completeSection}
-		{articleTitleSelected}
-	/>
+	<CourseArticle articles={data.section.articles} {articleTitleSelected}>
+		<div class="flex justify-end">
+			<div
+				class="bg-gradient-to-r flex p-[1px] justify-center items-center rounded-lg z-20 relative from-yellow-500 to-orange-500 gradient_yellow"
+			>
+				<button
+					class=" rounded-lg p-4 bg-slate-800 text-stone-100 text-md font-bold outline-none hover:bg-transparent hover:text-black duration-75"
+					on:click={completeSection}
+				>
+					{data.allSections.at(-1).id === data.section.id ? 'Finalizar curso' : 'Siguiente seccion'}
+				</button>
+			</div>
+		</div>
+	</CourseArticle>
 </section>

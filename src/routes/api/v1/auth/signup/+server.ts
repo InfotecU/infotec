@@ -9,7 +9,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
 	const { email, password } = await request.json();
 
-	const { data: dataUser, error: errorUser } = await userService.getOneByColumn({
+	const { data: dataUser, error: errorUser } = await userService.getFilterByColumn({
 		column: 'email',
 		value: email
 	});

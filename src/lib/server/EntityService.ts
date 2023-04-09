@@ -24,15 +24,28 @@ export class EntityService {
 		return { data, error };
 	};
 
-	public getOneByColumn: (filter: {
+	public getFilterByColumn: (filter: {
 		column: string;
-		value: string | number | boolean;
-	}) => SupabaseResponse = async (filter: { column: string; value: string | number | boolean }) => {
-		const { data, error } = await this.supabase
-			.from(this.entity)
-			.select('*')
-			.eq(filter.column, filter.value);
-		return { data, error };
+		value: string | number | boolean | string[] | number[];
+		filterType?: string;
+	}) => SupabaseResponse = async (filter: {
+		column: string;
+		value: string | number | boolean | string[] | number[];
+		filterType?: string;
+	}) => {
+		if (filter?.filterType === 'in') {
+			const { data, error } = await this.supabase
+				.from(this.entity)
+				.select('*')
+				.in(filter.column, filter.value as string[] | number[]);
+			return { data, error };
+		} else {
+			const { data, error } = await this.supabase
+				.from(this.entity)
+				.select('*')
+				.eq(filter.column, filter.value);
+			return { data, error };
+		}
 	};
 
 	/**

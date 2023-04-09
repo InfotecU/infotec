@@ -2,7 +2,7 @@
 	import hljs from 'highlight.js';
 	import 'highlight.js/styles/atom-one-dark.css';
 	import { onMount, afterUpdate } from 'svelte';
-	import { createEventDispatcher } from 'svelte';
+	// import { createEventDispatcher } from 'svelte';
 
 	type Article = {
 		title: string;
@@ -25,6 +25,7 @@
 
 	export let articles: Article[];
 	export let articleTitleSelected = '';
+	// export let lastSection: boolean = false;
 	let content = '';
 
 	const tagStylesTailwind = {
@@ -37,7 +38,7 @@
 		code: 'mb-5 mt-5'
 	};
 
-	const dispatch = createEventDispatcher();
+	// const dispatch = createEventDispatcher();
 
 	const getAllContents = (articles: Article[]) =>
 		articles
@@ -75,7 +76,8 @@
 
 <article class="grow h-full overflow-y-scroll article scrollbar-none w-full">
 	{@html content}
-	<div class="flex justify-end">
+	<slot />
+	<!-- <div class="flex justify-end">
 		<div
 			class="bg-gradient-to-r flex p-[1px] justify-center items-center rounded-lg z-20 relative from-yellow-500 to-orange-500 gradient_yellow"
 		>
@@ -85,8 +87,8 @@
 					dispatch('finish-section', { id: articles[0].section_id });
 				}}
 			>
-				Completar seccion
+				Completar seccion 
 			</button>
 		</div>
-	</div>
+	</div> -->
 </article>

@@ -6,7 +6,10 @@
 </script>
 
 <Navbar
-	menus={[{ name: 'Cursos', href: '/courses' }, { name: 'Sobre nosotros' }]}
+	menus={[
+		{ name: 'Cursos', href: '/courses' },
+		{ name: 'Sobre nosotros', href: '/about' }
+	]}
 	user={data.session ? data.session.user : null}
 />
 <!-- <main

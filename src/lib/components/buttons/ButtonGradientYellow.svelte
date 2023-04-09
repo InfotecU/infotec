@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let content: string;
 	export let href: string | null = null;
+	export let bgColor: string = 'black';
 </script>
 
 <div
@@ -9,6 +10,7 @@
 	{#if href}
 		<a
 			class=" rounded-lg p-4 text-stone-100 bg-gray-950 text-md font-bold outline-none hover:bg-transparent hover:text-black duration-75"
+			class:bg-gray={bgColor === 'gray'}
 			{href}
 		>
 			{content}
@@ -16,6 +18,7 @@
 	{:else}
 		<button
 			class=" rounded-lg p-4 text-stone-100 bg-gray-950 text-md font-bold outline-none hover:bg-transparent hover:text-black duration-75"
+			class:bg-gray={bgColor === 'gray'}
 			on:click
 		>
 			{content}
@@ -38,5 +41,13 @@
 		opacity: 0.7;
 		transition: opacity 0.3s;
 		border-radius: inherit;
+	}
+
+	.bg-gray {
+		@apply bg-gray-800;
+	}
+
+	.bg-gray:hover {
+		@apply bg-transparent;
 	}
 </style>

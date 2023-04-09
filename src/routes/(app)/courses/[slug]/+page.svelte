@@ -17,4 +17,11 @@
 			<SectionCard {section} />
 		{/each}
 	</div>
+	{#if !data.session}
+		<p class="text-sm font-medium text-gray-600 mt-10">
+			¿No iniciaste sesion? <a href="/sign-in" class="text-gray-400 font-bold hover:text-gray-300"
+				>Inicia sesion</a
+			> para comenzar a visualizar tu progreso!
+		</p>
+	{/if}
 </section>

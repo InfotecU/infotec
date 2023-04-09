@@ -2,11 +2,13 @@ import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
+	const session = await locals.getSession();
+
 	const dbService = locals.dbService;
 	const courseServices = dbService.getEntityService('courses');
 	const sectionServices = dbService.getEntityService('sections');
 
-	const { data: courseData, error: courseError } = await courseServices.getOneByColumn({
+	const { data: courseData, error: courseError } = await courseServices.getFilterByColumn({
 		column: 'slug',
 		value: params.slug
 	});
@@ -19,7 +21,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 	const course = courseData[0];
 
-	const { data: sectionsData, error: sectionsError } = await sectionServices.getOneByColumn({
+	const { data: sectionsData, error: sectionsError } = await sectionServices.getFilterByColumn({
 		column: 'course_id',
 		value: course.id
 	});
@@ -35,6 +37,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 		});
 
 	return {
-		course: course
+		course: course,
+		session
 	};
 };

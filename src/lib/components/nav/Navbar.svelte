@@ -9,12 +9,6 @@
 		href?: string | null;
 	};
 
-	// type User = {
-	// 	email: string;
-	// 	role: string;
-	// 	id: string;
-	// };
-
 	export let menus: Menu[];
 	export let user: User | null;
 </script>
