@@ -31,11 +31,11 @@
 	const tagStylesTailwind = {
 		h1: 'text-4xl font-bold text-stone-200 mb-5 ,t-5',
 		h2: 'text-2xl font-bold text-stone-200 mb-2 mt-5',
-		p: 'text-md font-medium text-slate-400 mb-5',
-		ul: 'text-md font-medium text-slate-400 list-disc list-inside mb-5',
+		p: 'text-md font-medium text-stone-400 mb-5',
+		ul: 'text-md font-medium text-stone-400 list-disc list-inside mb-5',
 		li: 'mt-1',
-		strong: 'text-md font-bold text-slate-200',
-		code: 'mb-5 mt-5'
+		strong: 'text-md font-bold text-stone-200',
+		pre: ' mb-5 mt-5 rounded-lg overflow-hidden'
 	};
 
 	// const dispatch = createEventDispatcher();
@@ -52,7 +52,7 @@
 		newHtml = newHtml.replace(/<ul>/g, `<ul class="${tagStylesTailwind.ul}">`);
 		newHtml = newHtml.replace(/<li>/g, `<li class="${tagStylesTailwind.ul}">`);
 		newHtml = newHtml.replace(/<strong>/g, `<strong class="${tagStylesTailwind.strong}">`);
-		newHtml = newHtml.replace(/<pre>/g, `<pre class="${tagStylesTailwind.code}">`);
+		newHtml = newHtml.replace(/<pre>/g, `<pre class="${tagStylesTailwind.pre}">`);
 		return newHtml;
 	};
 
@@ -74,21 +74,7 @@
 	$: scrollToArticle(articleTitleSelected);
 </script>
 
-<article class="grow h-full overflow-y-scroll article scrollbar-none w-full">
+<article class="grow h-full overflow-y-scroll article scrollbar-none w-full scrollbar">
 	{@html content}
 	<slot />
-	<!-- <div class="flex justify-end">
-		<div
-			class="bg-gradient-to-r flex p-[1px] justify-center items-center rounded-lg z-20 relative from-yellow-500 to-orange-500 gradient_yellow"
-		>
-			<button
-				class=" rounded-lg p-4 bg-slate-800 text-stone-100 text-md font-bold outline-none hover:bg-transparent hover:text-black duration-75"
-				on:click={() => {
-					dispatch('finish-section', { id: articles[0].section_id });
-				}}
-			>
-				Completar seccion 
-			</button>
-		</div>
-	</div> -->
 </article>

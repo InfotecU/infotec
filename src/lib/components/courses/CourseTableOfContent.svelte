@@ -48,7 +48,7 @@
 	<div class="overflow-y-scroll scrollbar-none">
 		{#each sections as section}
 			<a
-				class="text-xl font-extrabold text-stone-200 hover:text-slate-300 truncate flex justify-end gap-1 items-center"
+				class="text-xl font-medium text-stone-200 hover:text-slate-300 truncate flex justify-end gap-1 items-center"
 				class:selectec={selectecSectionSlug === section.slug}
 				href={`/courses/${section.courseSlug}/${section.slug}`}
 				><span>
@@ -61,7 +61,7 @@
 			<!-- <div class="h-[2px] w-full rounded-full bg-slate-800 mt-3 mb-3" /> -->
 			<ul class="">
 				{#each section.articles as article}
-					<li class="text-medium font-bold text-slate-500 mt-2 mb-2 hover:text-slate-300 truncate">
+					<li class="text-medium font-light text-stone-500 mt-2 mb-2 hover:text-stone-300 truncate">
 						<button
 							on:click={() => {
 								dispatch('article-click', { title: article.title });

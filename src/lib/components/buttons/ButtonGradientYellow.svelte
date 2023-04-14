@@ -1,27 +1,31 @@
 <script lang="ts">
-	export let content: string;
+	// export let content: string;
 	export let href: string | null = null;
-	export let bgColor: string = 'black';
+	export let shadow = true;
+
+	let bigShadow = false;
 </script>
 
 <div
-	class="bg-gradient-to-r flex p-[1px] justify-center items-center rounded-lg z-20 relative from-yellow-500 to-orange-500 gradient_yellow"
+	class="bg-gradient-to-r flex p-[1px] justify-center items-center rounded-lg z-20 relative from-yellow-500 to-orange-500"
+	class:gradient_yellow={shadow}
+	class:gradient_yellow_big={shadow && bigShadow}
 >
 	{#if href}
 		<a
-			class=" rounded-lg p-4 text-stone-100 bg-gray-950 text-md font-bold outline-none hover:bg-transparent hover:text-black duration-75"
-			class:bg-gray={bgColor === 'gray'}
+			class=" rounded-lg p-4 text-stone-100 bg-gray-950 text-md font-bold outline-none hover:bg-transparent hover:text-black duration-200"
 			{href}
+			on:mouseover={() => (bigShadow = true)}
+			on:mouseleave={() => (bigShadow = false)}
 		>
-			{content}
+			<slot />
 		</a>
 	{:else}
 		<button
 			class=" rounded-lg p-4 text-stone-100 bg-gray-950 text-md font-bold outline-none hover:bg-transparent hover:text-black duration-75"
-			class:bg-gray={bgColor === 'gray'}
 			on:click
 		>
-			{content}
+			<slot />
 		</button>
 	{/if}
 </div>
@@ -42,12 +46,8 @@
 		transition: opacity 0.3s;
 		border-radius: inherit;
 	}
-
-	.bg-gray {
-		@apply bg-gray-800;
-	}
-
-	.bg-gray:hover {
-		@apply bg-transparent;
+	.gradient_yellow_big:before {
+		transition: 0.3s;
+		transform: translate3d(0px, 0px, 0) scale(1.1);
 	}
 </style>

@@ -17,7 +17,7 @@
 			href="#"
 			>Registrarse
 		</a>
-		<ButtonGradientYellow content="Comenzar" href="/courses" bgColor="gray" />
+		<ButtonGradientYellow href="/courses">Ir a los cursos</ButtonGradientYellow>
 	</div>
 </section>
 

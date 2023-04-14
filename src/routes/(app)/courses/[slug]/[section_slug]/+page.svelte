@@ -5,9 +5,12 @@
 	import CourseTableOfContent from '$lib/components/courses/CourseTableOfContent.svelte';
 	import CourseArticle from '$lib/components/courses/CourseArticle.svelte';
 	import { ApiService } from '$lib/ApiService';
+	import ButtonGradientYellow from '$lib/components/buttons/ButtonGradientYellow.svelte';
+	import Spinner from '$lib/components/spinner/Spinner.svelte';
 
 	export let data: PageServerData;
 	let articleTitleSelected = '';
+	let loadingCompleteSection = false;
 
 	const parseProgress = (sectionsComplete: { user_id: number; section_id: number }[]) => {
 		return {
@@ -25,6 +28,7 @@
 
 	const completeSection = async (e: Event) => {
 		if (!$page.data.session) goto(data.nextSection?.slug || '/courses');
+		loadingCompleteSection = true;
 
 		const api = new ApiService('/api/v1/sections/complete');
 
@@ -35,6 +39,7 @@
 			}
 		});
 
+		loadingCompleteSection = false;
 		goto(data.nextSection?.slug || '/courses');
 	};
 </script>
@@ -54,19 +59,27 @@
 			on:article-click={selectArticle}
 		/>
 	{/if}
-	<div class="w-1 h-ful rounded-full bg-slate-600" />
+	<div class="w-[1px] h-ful rounded-full bg-stone-900" />
+	<Spinner />
 	<CourseArticle articles={data.section.articles} {articleTitleSelected}>
-		<div class="flex justify-end">
-			<div
+		<div class="flex justify-end m-5">
+			<!-- <div
 				class="bg-gradient-to-r flex p-[1px] justify-center items-center rounded-lg z-20 relative from-yellow-500 to-orange-500 gradient_yellow"
-			>
-				<button
+			> -->
+			<!-- <button
 					class=" rounded-lg p-4 bg-slate-800 text-stone-100 text-md font-bold outline-none hover:bg-transparent hover:text-black duration-75"
 					on:click={completeSection}
 				>
 					{data.allSections.at(-1).id === data.section.id ? 'Finalizar curso' : 'Siguiente seccion'}
-				</button>
-			</div>
+				</button> -->
+			<ButtonGradientYellow on:click={completeSection} shadow={false}>
+				{#if !loadingCompleteSection}
+					{data.allSections.at(-1).id === data.section.id ? 'Finalizar curso' : 'Siguiente seccion'}
+				{:else}
+					<Spinner color="#FFF" />
+				{/if}
+			</ButtonGradientYellow>
+			<!-- </div> -->
 		</div>
 	</CourseArticle>
 </section>

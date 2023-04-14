@@ -54,4 +54,8 @@ export class AuthService {
 
 		return { data, error };
 	};
+
+	public signout = async () => {
+		return await this.supabase.auth.signOut();
+	};
 }

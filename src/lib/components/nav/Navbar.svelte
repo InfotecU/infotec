@@ -14,7 +14,7 @@
 </script>
 
 <nav
-	class="flex w-screen max-w-screen h-24 bg-transparent fixed justify-around items-center gap-10"
+	class="flex w-screen max-w-screen h-24 bg-transparent fixed justify-around items-center gap-10 border-b border-stone-900 border-solid"
 >
 	<div class="h-20 flex items-center">
 		<a href="/">
@@ -24,7 +24,7 @@
 	<ul class="flex justify-center gap-5">
 		{#each menus as menu}
 			<li>
-				<a href={menu.href || '#'} class="text-stone-100 font-bold p-2 hover:text-yellow-400"
+				<a href={menu.href || '#'} class="text-stone-500 font-medium p-2 hover:text-stone-300"
 					>{menu.name.toUpperCase()}</a
 				>
 			</li>

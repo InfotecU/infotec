@@ -14,7 +14,7 @@
 </script>
 
 <a
-	class="bg-gray-700 p-5 rounded-lg hover:-translate-y-1"
+	class="bg-stone-900 border border-stone-700 hover:border-stone-500 p-5 rounded-lg hover:-translate-y-1 border-solid"
 	href={`/courses/${section.courseSlug}/${section.slug}`}
 >
 	<p class="text-xl font-bold text-stone-200 flex items-center justify-start gap-1">

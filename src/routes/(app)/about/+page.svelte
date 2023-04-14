@@ -1,1 +1,1 @@
-<p>sobre nosotros</p>
+<p class="text-white">sobre nosotros</p>

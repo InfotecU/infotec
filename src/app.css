@@ -19,6 +19,21 @@ a:visited,
 a:active {
 	text-decoration: none;
 }
+
+/* pre {
+	border-radius: 10px;
+	overflow: hidden;
+	width: 75%;
+} */
+
+pre code span {
+	padding: 5px;
+	display: inline-block;
+}
+
+/* span {
+	margin: 10px;
+} */
 /*
 @layer base {
 	html {
