@@ -11,11 +11,12 @@
 	};
 
 	export let section: Section;
+	export let course: any;
 </script>
 
 <a
 	class="bg-stone-900 border border-stone-700 hover:border-stone-500 p-5 rounded-lg hover:-translate-y-1 border-solid"
-	href={`/courses/${section.courseSlug}/${section.slug}`}
+	href={`/courses/${course.slug}/${section.slug}`}
 >
 	<p class="text-xl font-bold text-stone-200 flex items-center justify-start gap-1">
 		<strong class="text-yellow-500">{section.order}</strong>

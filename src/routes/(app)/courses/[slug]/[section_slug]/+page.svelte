@@ -4,7 +4,6 @@
 	import { goto } from '$app/navigation';
 	import CourseTableOfContent from '$lib/components/courses/CourseTableOfContent.svelte';
 	import CourseArticle from '$lib/components/courses/CourseArticle.svelte';
-	import { ApiService } from '$lib/ApiService';
 	import ButtonGradientYellow from '$lib/components/buttons/ButtonGradientYellow.svelte';
 	import Spinner from '$lib/components/spinner/Spinner.svelte';
 
@@ -30,14 +29,11 @@
 		if (!$page.data.session) goto(data.nextSection?.slug || '/courses');
 		loadingCompleteSection = true;
 
-		const api = new ApiService('/api/v1/sections/complete');
+		const formData = new FormData();
+		formData.append('sectionId', data.section.id);
+		formData.append('userUid', $page.data.session.user.id);
 
-		await api.post({
-			body: {
-				sectionId: data.section.id,
-				userUid: $page.data.session.user.id
-			}
-		});
+		await fetch('?/completeSection', { method: 'POST', body: formData });
 
 		loadingCompleteSection = false;
 		goto(data.nextSection?.slug || '/courses');
@@ -63,15 +59,6 @@
 	<Spinner />
 	<CourseArticle articles={data.section.articles} {articleTitleSelected}>
 		<div class="flex justify-end m-5">
-			<!-- <div
-				class="bg-gradient-to-r flex p-[1px] justify-center items-center rounded-lg z-20 relative from-yellow-500 to-orange-500 gradient_yellow"
-			> -->
-			<!-- <button
-					class=" rounded-lg p-4 bg-slate-800 text-stone-100 text-md font-bold outline-none hover:bg-transparent hover:text-black duration-75"
-					on:click={completeSection}
-				>
-					{data.allSections.at(-1).id === data.section.id ? 'Finalizar curso' : 'Siguiente seccion'}
-				</button> -->
 			<ButtonGradientYellow on:click={completeSection} shadow={false}>
 				{#if !loadingCompleteSection}
 					{data.allSections.at(-1).id === data.section.id ? 'Finalizar curso' : 'Siguiente seccion'}
@@ -79,7 +66,6 @@
 					<Spinner color="#FFF" />
 				{/if}
 			</ButtonGradientYellow>
-			<!-- </div> -->
 		</div>
 	</CourseArticle>
 </section>

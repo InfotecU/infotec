@@ -14,7 +14,7 @@
 	<h1 class="text-4xl font-bold text-stone-100">Secciones</h1>
 	<div class="flex flex-wrap gap-5 justify-center">
 		{#each data.course.sections as section}
-			<SectionCard {section} />
+			<SectionCard {section} course={data.course} />
 		{/each}
 	</div>
 	{#if !data.session}

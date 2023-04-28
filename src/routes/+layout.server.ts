@@ -1,20 +1,14 @@
 import type { LayoutServerLoad } from './$types';
 
-export const load: LayoutServerLoad = async ({ locals: { getSession, dbService }, params }) => {
+export const load: LayoutServerLoad = async ({ locals: { getSession, supabase }, params }) => {
 	const session = await getSession();
-
-	const userService = dbService.getEntityService('users');
 
 	if (!session) return { session: null };
 
-	const { data, error } = await userService.getFilterByColumn({
-		column: 'email',
-		value: session.user.email
-	});
+	const { data, error } = await supabase.from('users').select('*').eq('email', session.user.email);
 
-	// if user is authenticated for first time then insert into users table
 	if (data?.length === 0 && !error) {
-		await userService.create({
+		await supabase.from('users').insert({
 			username: 'USER',
 			email: session.user.email,
 			avatar_image_url: session.user.id + '.png',

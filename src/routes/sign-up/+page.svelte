@@ -1,59 +1,66 @@
 <script lang="ts">
-	import { OAuthService } from '$lib/OAuthService';
-	import { ApiService } from '$lib/ApiService';
+	// import { OAuthService } from '$lib/OAuthService';
+	// import { ApiService } from '$lib/ApiService';
 	import Input from '$lib/components/form/Input.svelte';
 	import Error from '$lib/components/form/Error.svelte';
+	import type { ActionData } from './$types';
 
-	let email: string, password: string, repeatPassword: string;
-	let errorMessage = '';
-	const oAuthService = new OAuthService();
+	import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
+	import { createClient } from '@supabase/supabase-js';
 
-	// TODO: cambiar por ApiService
-	const signUpEmail = async (e: SubmitEvent) => {
-		if (!email || !password) return (errorMessage = 'Campos incompletos');
-		if (password !== repeatPassword) return (errorMessage = 'Las contraseñas no coinciden');
-		if (password.length < 6)
-			return (errorMessage = 'La contraseña debe tener 6 caracteres como minimo');
+	export let form: ActionData;
 
-		const api = new ApiService('/api/v1/auth/signup');
+	const supabaseClient = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY);
 
-		const { data, error } = await api.post({ body: { email, password } });
-
-		if (error) errorMessage = 'Ocurrio un error en el servidor';
-		if (data.error) errorMessage = data.error.message;
-	};
-
-	const signInGoogle = async (e: Event) => {
-		const { data, error } = await oAuthService.signInWithGoogle();
+	const signUpGoogle = async (e: Event) => {
+		const { data, error } = await supabaseClient.auth.signInWithOAuth({
+			provider: 'google',
+			options: {
+				queryParams: {
+					access_type: 'offline',
+					prompt: 'consent'
+				}
+			}
+		});
 	};
 </script>
 
 <main class="h-screen bg-black">
 	<form
 		class="w-96 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-stone-900 p-10 flex flex-col gap-5 border border-stone-700 rounded-lg shadow-2xl shadow-stone-800"
-		on:submit|preventDefault={signUpEmail}
+		method="POST"
+		action="?/emailAuth"
 	>
 		<h3 class="text-xl font-bold text-white">Registrarse con email</h3>
-		<Input bind:value={email} type="email" config={{ label: 'Email', placeholder: 'email' }} />
+		<Input name="email" type="email" config={{ label: 'Email', placeholder: 'email' }} />
 		<Input
-			bind:value={password}
+			name="password"
 			type="password"
 			config={{ label: 'Contraseña', placeholder: 'contraseña' }}
 		/>
 		<Input
-			bind:value={repeatPassword}
+			name="repeatPassword"
 			type="password"
 			config={{ label: 'Contraseña', placeholder: 'escriba su contraseña nuevamente' }}
 		/>
 		<Input type="submit" value="Registrarse" />
-		{#if errorMessage}
-			<Error message={errorMessage} />
+		{#if form?.missing}
+			<Error message="Todos los campos son obligatorios" />
+		{/if}
+		{#if form?.passwordRepeat}
+			<Error message="Las contraseñas no coinciden" />
+		{/if}
+		{#if form?.duplicateMail}
+			<Error message="Ya existe un usuario con ese mail" />
+		{/if}
+		{#if form?.serverError}
+			<Error message="Ocurrio un error en el servidor de autenticacion" />
 		{/if}
 		<div class="bg-stone-700 h-[1px]" />
 		<button
 			type="button"
 			class="p-2 bg-black text-white border boder-white flex justify-center gap-3 rounded-lg items-center hover:bg-white hover:text-black"
-			on:click={signInGoogle}
+			on:click={signUpGoogle}
 		>
 			<svg
 				class="w-4 h-4 mr-2 -ml-1"

@@ -17,20 +17,6 @@
 					.reduce((accumulator, value) => accumulator + value, 0)
 			};
 		});
-
-	// return data.scoresSection?.map((scoresSection) => {
-	// 	return {
-	// 		product: 'estadisticas',
-	// 		feature: data.scores.find((score) => score.id === scoresSection.score_id)?.name,
-	// 		score: scoresSection.value
-	// 	};
-	// });
-
-	console.log(parseData(data));
-
-	// estadisticas:
-	// puntos totales
-	//
 </script>
 
 <section

@@ -1,10 +1,11 @@
 <script lang="ts">
 	import type { User } from '@supabase/supabase-js';
 	import { Icon, UserCircle } from 'svelte-hero-icons';
-	import { ApiService } from '$lib/ApiService';
+	import { createEventDispatcher } from 'svelte';
 
 	export let user: User;
 	let dropMenu = false;
+	const dispatch = createEventDispatcher();
 
 	const menus = [
 		{
@@ -18,8 +19,7 @@
 		{
 			name: 'Cerrar sesion',
 			onClick: async () => {
-				const api = new ApiService('/api/v1/auth/signout');
-				await api.post({});
+				dispatch('logout', {});
 			}
 		}
 	];

@@ -1,14 +1,25 @@
-import { AuthService } from '$lib/server/AuthService';
-import { DBService } from '$lib/server/DBService';
+import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
+import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
 import type { Handle } from '@sveltejs/kit';
+// import { AuthService } from '$lib/server/AuthService';
+// import { DBService } from '$lib/server/DBService';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const authService = new AuthService(event);
-	const dbService = new DBService(event);
+	const supabase = createSupabaseServerClient({
+		supabaseUrl: PUBLIC_SUPABASE_URL,
+		supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
+		event
+	});
 
-	event.locals.getSession = authService.getSession;
-	event.locals.authService = authService;
-	event.locals.dbService = dbService;
+	const getSession = async () => {
+		const {
+			data: { session }
+		} = await supabase.auth.getSession();
+		return session;
+	};
+
+	event.locals.supabase = supabase;
+	event.locals.getSession = getSession;
 
 	return resolve(event, {
 		/**

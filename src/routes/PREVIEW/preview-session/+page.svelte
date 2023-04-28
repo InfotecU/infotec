@@ -9,8 +9,6 @@
 			method: 'POST',
 			body: JSON.stringify({ email, password })
 		});
-
-		console.log(await res.json());
 	};
 
 	const login = async (e: SubmitEvent) => {
@@ -18,8 +16,6 @@
 			method: 'POST',
 			body: JSON.stringify({ email, password })
 		});
-
-		console.log(await res.json());
 	};
 </script>
 

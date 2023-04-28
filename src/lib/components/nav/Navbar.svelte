@@ -31,7 +31,7 @@
 		{/each}
 	</ul>
 	{#if user}
-		<NavbarUserMenu {user} />
+		<NavbarUserMenu {user} on:logout />
 	{:else}
 		<a href="/sign-in" class="" title="Iniciar sesion">
 			<Icon src={ArrowRightOnRectangle} class="h-8 text-stone-400 hover:text-stone-100" />

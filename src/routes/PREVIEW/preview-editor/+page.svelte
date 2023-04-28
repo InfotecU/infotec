@@ -7,11 +7,8 @@
 	let arrayLog: any[] = [];
 
 	const log = (message: any) => {
-		console.log(message, 'desde log');
 		arrayLog = [...arrayLog, message];
 	};
-
-	// console.log(6); console.log('otro log')
 </script>
 
 <div class="w-1/2 p-10">
