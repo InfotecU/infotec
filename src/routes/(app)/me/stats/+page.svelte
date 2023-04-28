@@ -7,20 +7,20 @@
 	export let data: PageServerData;
 
 	const parseData = (data: PageServerData) =>
-		data.scores.map((score) => {
+		data.scores.map((score: any) => {
 			return {
 				product: 'puntos',
 				feature: score.name,
 				score: data.scoresSection
-					?.filter((scoreSection) => scoreSection.score_id === score.id)
-					.map((scoreSection) => scoreSection.value)
-					.reduce((accumulator, value) => accumulator + value, 0)
+					?.filter((scoreSection: any) => scoreSection.score_id === score.id)
+					.map((scoreSection: any) => scoreSection.value)
+					.reduce((accumulator: number, value: number) => accumulator + value, 0)
 			};
 		});
 </script>
 
 <section
-	class="flex flex-col gap-5 justify-start items-center h-4/5 overflow-y-scroll scrollbar-none"
+	class="flex flex-col gap-5 justify-start items-center h-[70%] overflow-y-scroll scrollbar-none"
 >
 	<h1 class="text-4xl font-bold text-stone-100">Estadisticas</h1>
 	<div class="h-1 w-56 m-5 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500" />

@@ -1,5 +1,6 @@
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
+import type { AuthError, Session } from '@supabase/supabase-js';
 import type { Handle } from '@sveltejs/kit';
 // import { AuthService } from '$lib/server/AuthService';
 // import { DBService } from '$lib/server/DBService';
@@ -11,7 +12,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		event
 	});
 
-	const getSession = async () => {
+	const getSession: () => Promise<Session | null> = async () => {
 		const {
 			data: { session }
 		} = await supabase.auth.getSession();

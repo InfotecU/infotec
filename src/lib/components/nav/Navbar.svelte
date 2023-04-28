@@ -14,7 +14,7 @@
 </script>
 
 <nav
-	class="flex w-screen max-w-screen h-24 bg-transparent fixed justify-around items-center gap-10 border-b border-stone-900 border-solid"
+	class="flex w-screen max-w-screen h-24 bg-black/50 backdrop-blur-sm fixed justify-around items-center gap-10 border-b border-stone-900 border-solid"
 >
 	<div class="h-20 flex items-center">
 		<a href="/">

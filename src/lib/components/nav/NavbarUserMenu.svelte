@@ -12,10 +12,10 @@
 			name: 'Estadisticas',
 			slug: 'stats'
 		},
-		{
-			name: 'Configuracion',
-			slug: 'settings'
-		},
+		// {
+		// 	name: 'Configuracion',
+		// 	slug: 'settings'
+		// },
 		{
 			name: 'Cerrar sesion',
 			onClick: async () => {

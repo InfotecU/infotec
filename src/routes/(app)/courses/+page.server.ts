@@ -1,7 +1,10 @@
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
+import type { Database } from '$lib/types/supabase';
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad<{
+	courses: Database['public']['Tables']['courses']['Row'][];
+}> = async ({ locals }) => {
 	const { data: courses, error: coursesError } = await locals.supabase.from('courses').select('*');
 
 	if (coursesError || courses === null)
